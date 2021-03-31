@@ -2,6 +2,7 @@ import 'package:GRSON/fbase/authentication_service.dart';
 import 'package:GRSON/secondPages/theme/Theme.dart';
 import 'package:GRSON/welcomePages/components/enum.dart';
 import 'package:GRSON/welcomePages/components/forget_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/welcomepages/signin/components/background.dart';
 import 'package:GRSON/welcomepages/components/already_have_account.dart';
@@ -85,17 +86,17 @@ class _MyBody extends State<Body> {
             RoundedButton(
               text: "SIGN IN",
               press: () {
-                Provider.of<AuthenticationService>(context, listen: false)
-                    .signIn(
-                  // context.read<AuthenticationService>().signIn(
-                  email: econtroller.text,
-                  password: pcontroller.text,
-                );
+                // Provider.of<AuthenticationService>(context, listen: false)
+                //     .signIn(
+                //   email: econtroller.text,
+                //   password: pcontroller.text,
+                // Navigator.pushReplacementNamed(context, '/home');
+                // );
 
-                if (temp == SingingCharacter.customer)
-                  Navigator.pushReplacementNamed(context, '/home');
-                else
-                  Navigator.pushReplacementNamed(context, "Restaurant");
+                // if (temp == SingingCharacter.customer)
+                //   Navigator.pushReplacementNamed(context, '/home');
+                // else
+                //   Navigator.pushReplacementNamed(context, "Restaurant");
               },
             ),
             SizedBox(height: size.height * 0.02),

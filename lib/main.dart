@@ -83,8 +83,22 @@ class MyApp extends StatelessWidget {
               if (snapshot.hasError) {
                 print('you have an error ${snapshot.error.toString()}');
                 return Text("something went wrong");
-              } else if (snapshot.hasData) {
-                return AuthenticationWrapper();
+              } else if (snapshot.connectionState == ConnectionState.done) {
+                return StreamBuilder(
+                    stream: FirebaseAuth.instance.authStateChanges(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.active) {
+                        User user = snapshot.data;
+                        if (user == null) {
+                          return WelcomeScreen();
+                        } else {
+                          return CHome();
+                        }
+                      }
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }); // AuthenticationWrapper();
               } else {
                 return Center(
                   child: CircularProgressIndicator(),
