@@ -3,10 +3,14 @@ import 'package:GRSON/welcomepages/components/text_field_container.dart';
 import 'package:GRSON/welcomepages/constants.dart';
 
 class RoundedPasswordField extends StatelessWidget {
+    final TextEditingController controller;
+
   final ValueChanged<String> onChanged;
   const RoundedPasswordField({
     Key key,
-    this.onChanged,
+        this.onChanged,
+         this.controller,
+
   }) : super(key: key);
 
   @override
@@ -14,7 +18,8 @@ class RoundedPasswordField extends StatelessWidget {
     return TextFieldContainer(
       child: TextField(
         obscureText: true,
-        onChanged: onChanged,
+        controller:controller,
+       onChanged: onChanged,
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
           hintText: "Password",

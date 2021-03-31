@@ -12,19 +12,37 @@ import 'package:GRSON/welcomePages/Signin/components/password_validation.dart';
 import 'package:GRSON/welcomePages/Signin/login_screen.dart';
 import 'package:GRSON/welcomePages/Signup/components/email_validation.dart';
 import 'package:GRSON/welcomePages/Signup/signup_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/welcomePages/Welcome/welcome_screen.dart';
 import 'package:GRSON/welcomePages/constants.dart';
+import 'package:provider/provider.dart';
+import 'fbase/authentication_service.dart';
 import 'secondPages/restaurant_screens/My_Restaurant/Restaurant_Pages/Queue/queueAdd.dart';
 import 'secondPages/restaurant_screens/My_Restaurant/Restaurant_Pages/Take_Away/AddItem.dart';
 import 'secondPages/restaurant_screens/My_Restaurant/Restaurant_Pages/myRestaurant.dart';
 
-void main() => runApp(MyApp());
+Future<void> main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers:[
+        Provider<AuthenticationService>(
+          create:(_)=>AuthenticationService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context)=>context.read<AuthenticationService>().authStateChanges,
+
+        ),
+      ],
+     child: MaterialApp(
         title: 'GRSON',
         theme: ThemeData(
             fontFamily: 'OpenSans',
@@ -56,6 +74,20 @@ class MyApp extends StatelessWidget {
           'validation': (BuildContext context) => new VerifyEmail(),
           'passValidation': (BuildContext context) =>
               new VerifyEmailForPassword(),
-        });
+  },
+        home: AuthenticationWrapper(),
+        ),
+        );
+  }
+}
+class AuthenticationWrapper extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser=context.watch<User>();
+    if(firebaseUser != null){
+      return RHome();
+    }
+    return LoginScreen();
+
   }
 }
