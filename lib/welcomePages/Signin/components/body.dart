@@ -92,10 +92,10 @@ class _MyBody extends State<Body> {
                   password: pcontroller.text,
                 );
 
-                // if (temp == SingingCharacter.customer)
-                //   Navigator.pushReplacementNamed(context, '/home');
-                // else
-                //   Navigator.pushReplacementNamed(context, "Restaurant");
+                if (temp == SingingCharacter.customer)
+                  Navigator.pushReplacementNamed(context, '/home');
+                else
+                  Navigator.pushReplacementNamed(context, "Restaurant");
               },
             ),
             SizedBox(height: size.height * 0.02),
