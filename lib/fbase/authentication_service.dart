@@ -24,12 +24,12 @@ class AuthenticationService {
   Future<void> signIn({
     String email,
     String password,
-    dynamic context,
+    // dynamic context,
   }) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-      Navigator.pushReplacementNamed(context, '/home');
+      // Navigator.pushReplacementNamed(context, '/home');
       // return CHome();
     } on Exception catch (e) {
       // return WelcomeScreen();
