@@ -8,20 +8,18 @@ import 'package:GRSON/welcomepages/components/already_have_account.dart';
 import 'package:GRSON/welcomepages/components/rounded_button.dart';
 import 'package:GRSON/welcomepages/components/rounded_input_email_field.dart';
 import 'package:GRSON/welcomepages/components/rounded_password_field.dart';
+import 'package:provider/provider.dart';
 import '../../constants.dart';
-
 
 class Body extends StatefulWidget {
   Body({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _MyBody();
-
 }
 
 class _MyBody extends State<Body> {
-
-    final TextEditingController econtroller = TextEditingController();
-    final TextEditingController pcontroller = TextEditingController();
+  final TextEditingController econtroller = TextEditingController();
+  final TextEditingController pcontroller = TextEditingController();
 
   SingingCharacter temp = SingingCharacter.customer;
   @override
@@ -44,7 +42,7 @@ class _MyBody extends State<Body> {
               onChanged: (value) {},
             ),
             RoundedPasswordField(
-              controller:pcontroller,
+              controller: pcontroller,
               onChanged: (value) {},
             ),
             Divider(
@@ -86,12 +84,14 @@ class _MyBody extends State<Body> {
             ]),
             RoundedButton(
               text: "SIGN IN",
-              press: (context) {
-                context.read<AuthenticationService>().signIn(
-                  email:econtroller.text,
-                  password:pcontroller.text,
+              press: () {
+                Provider.of<AuthenticationService>(context, listen: false)
+                    .signIn(
+                  // context.read<AuthenticationService>().signIn(
+                  email: econtroller.text,
+                  password: pcontroller.text,
                 );
-              
+
                 // if (temp == SingingCharacter.customer)
                 //   Navigator.pushReplacementNamed(context, '/home');
                 // else
