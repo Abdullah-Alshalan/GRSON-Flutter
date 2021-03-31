@@ -86,17 +86,21 @@ class _MyBody extends State<Body> {
             RoundedButton(
               text: "SIGN IN",
               press: () {
-                // Provider.of<AuthenticationService>(context, listen: false)
-                //     .signIn(
-                //   email: econtroller.text,
-                //   password: pcontroller.text,
-                // Navigator.pushReplacementNamed(context, '/home');
-                // );
-
+                Provider.of<AuthenticationService>(context, listen: false)
+                    .signIn(
+                  email: econtroller.text,
+                  password: pcontroller.text,
+                );
+                // firebaseUser = context.watch<User>();
+                // if (firebaseUser != null) {
                 // if (temp == SingingCharacter.customer)
                 //   Navigator.pushReplacementNamed(context, '/home');
                 // else
                 //   Navigator.pushReplacementNamed(context, "Restaurant");
+                // }
+                // else {
+                //   Navigator.pushReplacementNamed(context, 'WelcomePage');
+                // }
               },
             ),
             SizedBox(height: size.height * 0.02),
