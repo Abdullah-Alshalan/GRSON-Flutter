@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:GRSON/secondpages/theme/Theme.dart';
 
 import 'package:GRSON/secondpages/widgets/drawer-tile.dart';
+import 'package:provider/provider.dart';
+
+import '../../fbase/authentication_service.dart';
 // import 'package:url_launcher/url_launcher.dart';
 
 class ResDrawer extends StatelessWidget {
@@ -70,14 +73,16 @@ class ResDrawer extends StatelessWidget {
               DrawerTile(
                 icon: Icons.logout,
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return WelcomeScreen();
-                      },
-                    ),
-                  );
+                  Provider.of<AuthenticationService>(context, listen: false)
+                      .signOut();
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) {
+                  //       return WelcomeScreen();
+                  //     },
+                  //   ),
+                  // );
                 },
                 iconColor: ArgonColors.primary,
                 title: "Sign Out",
