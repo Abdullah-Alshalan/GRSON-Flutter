@@ -75,14 +75,14 @@ class ResDrawer extends StatelessWidget {
                 onTap: () {
                   Provider.of<AuthenticationService>(context, listen: false)
                       .signOut();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return WelcomeScreen();
-                  //     },
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return WelcomeScreen();
+                      },
+                    ),
+                  );
                 },
                 iconColor: ArgonColors.primary,
                 title: "Sign Out",
