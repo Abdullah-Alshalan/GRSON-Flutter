@@ -26,8 +26,9 @@ class AuthenticationService {
       // Navigator.pushReplacementNamed(context, '/home');
       // return CHome();
     } on Exception catch (e) {
-      print("invalid user");
-      // return WelcomeScreen();
+      //   print("invalid user");
+      //   // return WelcomeScreen();
+      // }
     }
   }
 
