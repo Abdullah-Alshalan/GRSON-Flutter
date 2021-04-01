@@ -1,4 +1,3 @@
-import 'package:GRSON/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationService {
@@ -12,9 +11,7 @@ class AuthenticationService {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       return "signed up";
-    } on FirebaseAuthException catch (e) {
-      return e.message;
-    }
+    } on Exception catch (e) {}
   }
 
   // SIGN IN
@@ -22,7 +19,6 @@ class AuthenticationService {
     // try {
     await _firebaseAuth.signInWithEmailAndPassword(
         email: email, password: password);
-    AuthWrapper();
     print('in sign in method');
     return "Signed in";
     // return CHome();

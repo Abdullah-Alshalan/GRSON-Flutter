@@ -93,7 +93,6 @@ class _MyBody extends State<Body> {
                     )
                     .then((value) => print('value'));
                 print("here");
-                AuthWrapper();
                 // if (temp == SingingCharacter.customer)
                 //   Navigator.pushReplacementNamed(context, '/home');
                 // else
