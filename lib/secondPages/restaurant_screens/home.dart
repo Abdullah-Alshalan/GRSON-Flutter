@@ -7,7 +7,6 @@ import 'My_Restaurant/myRestaurantHome.dart';
 class RHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("object2");
     return DefaultTabController(
         length: 2,
         child: Scaffold(

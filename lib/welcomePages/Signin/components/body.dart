@@ -2,7 +2,6 @@ import 'package:GRSON/fbase/authentication_service.dart';
 import 'package:GRSON/secondPages/theme/Theme.dart';
 import 'package:GRSON/welcomePages/components/enum.dart';
 import 'package:GRSON/welcomePages/components/forget_password.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/welcomepages/signin/components/background.dart';
 import 'package:GRSON/welcomepages/components/already_have_account.dart';
@@ -10,6 +9,7 @@ import 'package:GRSON/welcomepages/components/rounded_button.dart';
 import 'package:GRSON/welcomepages/components/rounded_input_email_field.dart';
 import 'package:GRSON/welcomepages/components/rounded_password_field.dart';
 import 'package:provider/provider.dart';
+import '../../../main.dart';
 import '../../constants.dart';
 
 class Body extends StatefulWidget {
@@ -88,10 +88,12 @@ class _MyBody extends State<Body> {
               press: () {
                 Provider.of<AuthenticationService>(context, listen: false)
                     .signIn(
-                      email: econtroller.text.trim(),
-                      password: pcontroller.text.trim(),
+                      email: econtroller.text,
+                      password: pcontroller.text,
                     )
                     .then((value) => print('value'));
+                print("here");
+                AuthWrapper();
                 // if (temp == SingingCharacter.customer)
                 //   Navigator.pushReplacementNamed(context, '/home');
                 // else

@@ -1,5 +1,5 @@
+import 'package:GRSON/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
@@ -19,18 +19,18 @@ class AuthenticationService {
 
   // SIGN IN
   Future<void> signIn({String email, String password}) async {
-    try {
-      await _firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      print('in sign in method');
-      return "Signed in";
-      // Navigator.pushReplacementNamed(context, '/home');
-      // return CHome();
-    } on Exception catch (e) {
-      print("invalid user");
-      //   // return WelcomeScreen();
-      // }
-    }
+    // try {
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    AuthWrapper();
+    print('in sign in method');
+    return "Signed in";
+    // return CHome();
+    // } on Exception catch (e) {
+    // print("invalid user");
+    // return WelcomeScreen();
+    // }
+    // }
   }
 
   // SIGN OUT
