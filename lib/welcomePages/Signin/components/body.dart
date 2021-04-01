@@ -91,16 +91,15 @@ class _MyBody extends State<Body> {
                   email: econtroller.text,
                   password: pcontroller.text,
                 );
-                // firebaseUser = context.watch<User>();
-                // if (firebaseUser != null) {
-                // if (temp == SingingCharacter.customer)
-                //   Navigator.pushReplacementNamed(context, '/home');
-                // else
-                //   Navigator.pushReplacementNamed(context, "Restaurant");
-                // }
-                // else {
-                //   Navigator.pushReplacementNamed(context, 'WelcomePage');
-                // }
+                //final firebaseUser = context.watch<User>();
+                //if (firebaseUser != null) {
+                if (temp == SingingCharacter.customer)
+                  Navigator.pushReplacementNamed(context, '/home');
+                else
+                  Navigator.pushReplacementNamed(context, "Restaurant");
+                //} else {
+                //  Navigator.pushReplacementNamed(context, 'WelcomePage');
+                //}
               },
             ),
             SizedBox(height: size.height * 0.02),

@@ -7,10 +7,7 @@ class AuthenticationService {
   Stream<User> get authStateChanges => _firebaseAuth.authStateChanges();
 
 // SIGN UP
-  Future<String> signUp({
-    String email,
-    String password,
-  }) async {
+  Future<String> signUp({String email, String password}) async {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -21,17 +18,15 @@ class AuthenticationService {
   }
 
   // SIGN IN
-  Future<void> signIn({
-    String email,
-    String password,
-    // dynamic context,
-  }) async {
+  Future<void> signIn({String email, String password}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+
       // Navigator.pushReplacementNamed(context, '/home');
       // return CHome();
     } on Exception catch (e) {
+      print("invalid user");
       // return WelcomeScreen();
     }
   }
