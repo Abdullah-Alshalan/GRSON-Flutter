@@ -26,7 +26,6 @@ import 'secondPages/restaurant_screens/My_Restaurant/Restaurant_Pages/myRestaura
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   runApp(MyApp());
 }
 
