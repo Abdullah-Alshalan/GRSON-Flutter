@@ -25,12 +25,12 @@ import 'secondPages/restaurant_screens/My_Restaurant/Restaurant_Pages/myRestaura
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
+  // final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _fbApp = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -45,78 +45,87 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          title: 'GRSON',
-          theme: ThemeData(
-              fontFamily: 'OpenSans',
-              primaryColor: kPrimaryColor,
-              scaffoldBackgroundColor: Colors.white),
-          initialRoute: "WelcomePage",
-          debugShowCheckedModeBanner: false,
-          routes: <String, WidgetBuilder>{
-            //SecondPages
-            "/home": (BuildContext context) => new CHome(),
-            "Restaurant": (BuildContext context) => new RHome(),
-            "Restaurant page": (BuildContext context) => new RestaurantPage(),
-            "Queue add": (BuildContext context) => new QueueAdd(),
-            "Queue acc": (BuildContext context) => new QueueAccepet(),
-            "Take Away acc": (BuildContext context) => new TakeAwayAccepet(),
-            "Add item": (BuildContext context) => new AddItem(),
-            "/profile": (BuildContext context) => new Profile(),
-            "resprofile": (BuildContext context) => new ResProfile(),
-            "Queue page user side": (BuildContext context) => new QueuePage(),
-            "Take Away page user side": (BuildContext context) =>
-                new TakeAwayPage(),
-            "V home": (BuildContext context) => new VHome(),
+        title: 'GRSON',
+        theme: ThemeData(
+            fontFamily: 'OpenSans',
+            primaryColor: kPrimaryColor,
+            scaffoldBackgroundColor: Colors.white),
+        initialRoute: "WelcomePage",
+        debugShowCheckedModeBanner: false,
+        routes: <String, WidgetBuilder>{
+          //SecondPages
+          "/home": (BuildContext context) => new CHome(),
+          "Restaurant": (BuildContext context) => new RHome(),
+          "Restaurant page": (BuildContext context) => new RestaurantPage(),
+          "Queue add": (BuildContext context) => new QueueAdd(),
+          "Queue acc": (BuildContext context) => new QueueAccepet(),
+          "Take Away acc": (BuildContext context) => new TakeAwayAccepet(),
+          "Add item": (BuildContext context) => new AddItem(),
+          "/profile": (BuildContext context) => new Profile(),
+          "resprofile": (BuildContext context) => new ResProfile(),
+          "Queue page user side": (BuildContext context) => new QueuePage(),
+          "Take Away page user side": (BuildContext context) =>
+              new TakeAwayPage(),
+          "V home": (BuildContext context) => new VHome(),
 
-            //WelcomePages
-            "WelcomePage": (BuildContext context) => new WelcomeScreen(),
-            "Sign Up": (BuildContext context) => new SignUpScreen(),
-            'Sign In': (BuildContext context) => new LoginScreen(),
-            'Forgot Password': (BuildContext context) => new ForgotPassword(),
-            'validation': (BuildContext context) => new VerifyEmail(),
-            'passValidation': (BuildContext context) =>
-                new VerifyEmailForPassword(),
-          },
-          home: FutureBuilder(
-            future: _fbApp,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                print('you have an error ${snapshot.error.toString()}');
-                return Text("something went wrong");
-              } else if (snapshot.connectionState == ConnectionState.done) {
-                return StreamBuilder(
-                    stream: FirebaseAuth.instance.authStateChanges(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.active) {
-                        User user = snapshot.data;
-                        if (user == null) {
-                          return WelcomeScreen();
-                        } else {
-                          return CHome();
-                        }
-                      }
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }); // AuthenticationWrapper();
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          )),
+          //WelcomePages
+          "WelcomePage": (BuildContext context) => new WelcomeScreen(),
+          "Sign Up": (BuildContext context) => new SignUpScreen(),
+          'Sign In': (BuildContext context) => new LoginScreen(),
+          'Forgot Password': (BuildContext context) => new ForgotPassword(),
+          'validation': (BuildContext context) => new VerifyEmail(),
+          'passValidation': (BuildContext context) =>
+              new VerifyEmailForPassword(),
+        },
+        //here is the problem
+        home: AuthenticationWrapper(),
+
+        // FutureBuilder(
+        //   future: _fbApp,
+        //   builder: (context, snapshot) {
+        //     if (snapshot.hasError) {
+        //       print('you have an error ${snapshot.error.toString()}');
+        //       return Text("something went wrong");
+        //     } else if (snapshot.connectionState == ConnectionState.done) {
+        //       return StreamBuilder(
+        //           stream: FirebaseAuth.instance.authStateChanges(),
+        //           builder: (context, snapshot) {
+        //             if (snapshot.connectionState == ConnectionState.active) {
+        //               User user = snapshot.data;
+        //               if (user == null) {
+        //                 return WelcomeScreen();
+        //               } else {
+        //                 return CHome();
+        //               }
+        //             }
+        //             return Center(
+        //               child: CircularProgressIndicator(),
+        //             );
+        //           }); // AuthenticationWrapper();
+        //     } else {
+        //       return Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     }
+        //   },
+        // )
+      ),
     );
   }
 }
 
 class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({
+    Key key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    // print("object");
     final firebaseUser = context.watch<User>();
     if (firebaseUser != null) {
       return RHome();
     }
-    return LoginScreen();
+    print("object");
+    return WelcomeScreen();
   }
 }

@@ -22,11 +22,12 @@ class AuthenticationService {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
-
+      print('in sign in method');
+      return "Signed in";
       // Navigator.pushReplacementNamed(context, '/home');
       // return CHome();
     } on Exception catch (e) {
-      //   print("invalid user");
+      print("invalid user");
       //   // return WelcomeScreen();
       // }
     }
@@ -36,4 +37,30 @@ class AuthenticationService {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
+
+  // Stream<User> get user {
+  //   // return _firebaseAuth.authStateChanges
+  //   //     .map(_userFormFireBaseUser);
+  //   return _firebaseAuth.authStateChanges().listen((User user) {
+  //     if (user == null) {
+
+  //     } else {
+  //       print(user.uid);
+  //     }
+  //   });
+  // }
+
+//   User _userFormFireBaseUser(FirebaseUser user,
+//       {String email, String full_name}) {
+//     return user != null
+//         ? User(uid: user.uid, email: email, full_name: full_name)
+//         : null;
+//   }
 }
+
+// class User {
+//   final String uid;
+//   final String full_name;
+//   final String email;
+//   User({this.uid, this.full_name, this.email});
+// }

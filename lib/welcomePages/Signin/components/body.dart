@@ -88,18 +88,14 @@ class _MyBody extends State<Body> {
               press: () {
                 Provider.of<AuthenticationService>(context, listen: false)
                     .signIn(
-                  email: econtroller.text,
-                  password: pcontroller.text,
-                );
-                //final firebaseUser = context.watch<User>();
-                //if (firebaseUser != null) {
-                if (temp == SingingCharacter.customer)
-                  Navigator.pushReplacementNamed(context, '/home');
-                else
-                  Navigator.pushReplacementNamed(context, "Restaurant");
-                //} else {
-                //  Navigator.pushReplacementNamed(context, 'WelcomePage');
-                //}
+                      email: econtroller.text.trim(),
+                      password: pcontroller.text.trim(),
+                    )
+                    .then((value) => print('value'));
+                // if (temp == SingingCharacter.customer)
+                //   Navigator.pushReplacementNamed(context, '/home');
+                // else
+                //   Navigator.pushReplacementNamed(context, "Restaurant");
               },
             ),
             SizedBox(height: size.height * 0.02),
