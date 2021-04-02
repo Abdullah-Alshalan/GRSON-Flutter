@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          title: 'GRSON',
+          title: 'GRSON ',
           theme: ThemeData(
               fontFamily: 'OpenSans',
               primaryColor: kPrimaryColor,
