@@ -1,29 +1,21 @@
-import 'package:GRSON/welcomePages/Welcome/welcome_screen.dart';
+import 'package:GRSON/firebase/authrRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/secondpages/theme/Theme.dart';
 
 import 'package:GRSON/secondpages/widgets/drawer-tile.dart';
-import 'package:provider/provider.dart';
 
-import '../../fbase/authentication_service.dart';
-// import 'package:url_launcher/url_launcher.dart';
-
-class ResDrawer extends StatelessWidget {
+class ResDrawer extends StatefulWidget {
+  final AuthrRepository _auth = AuthrRepository.instance;
   final String currentPage;
   ResDrawer({
     this.currentPage,
   });
 
-  // _launchURL() async {
-  //   const url = 'https://github.com/Abdullah-Alshalan/GRSON-Flutter';
-  //   // print('hello');
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
+  @override
+  _ResDrawerState createState() => _ResDrawerState();
+}
 
+class _ResDrawerState extends State<ResDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -54,36 +46,27 @@ class ResDrawer extends StatelessWidget {
               DrawerTile(
                   icon: Icons.home,
                   onTap: () {
-                    if (currentPage != "Restaurant") {
+                    if (widget.currentPage != "Restaurant") {
                       Navigator.pushReplacementNamed(context, 'Restaurant');
                     }
                   },
                   iconColor: ArgonColors.primary,
                   title: "Home",
-                  isSelected: currentPage == "Restaurant" ? true : false),
+                  isSelected:
+                      widget.currentPage == "Restaurant" ? true : false),
               DrawerTile(
                   icon: Icons.pie_chart,
                   onTap: () {
-                    if (currentPage != "resprofile")
+                    if (widget.currentPage != "resprofile")
                       Navigator.pushReplacementNamed(context, 'resprofile');
                   },
                   iconColor: ArgonColors.warning,
                   title: "profile",
-                  isSelected: currentPage == "resprofile" ? true : false),
+                  isSelected:
+                      widget.currentPage == "resprofile" ? true : false),
               DrawerTile(
                 icon: Icons.logout,
-                onTap: () {
-                  Provider.of<AuthenticationService>(context, listen: false)
-                      .signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return WelcomeScreen();
-                      },
-                    ),
-                  );
-                },
+                onTap: () {},
                 iconColor: ArgonColors.primary,
                 title: "Sign Out",
               ),
@@ -108,17 +91,23 @@ class ResDrawer extends StatelessWidget {
                           fontSize: 15,
                         )),
                   ),
-                  // DrawerTile(
-                  //     icon: Icons.airplanemode_active,
-                  //     // onTap: _launchURL,
-                  //     iconColor: ArgonColors.muted,
-                  //     title: "Getting Started",
-                  //     isSelected:
-                  //         currentPage == "Getting started" ? true : false),
+                  DrawerTile(
+                      icon: Icons.airplanemode_active,
+                      // onTap: _launchURL,
+                      iconColor: ArgonColors.muted,
+                      title: "Getting Started",
+                      isSelected: widget.currentPage == "Getting started"
+                          ? true
+                          : false),
                 ],
               )),
         ),
       ]),
     ));
+  }
+
+  signOut() async {
+    await widget._auth.signOut();
+    Navigator.pushReplacementNamed(context, 'WelcomePage');
   }
 }

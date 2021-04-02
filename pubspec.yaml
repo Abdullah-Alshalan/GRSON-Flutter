@@ -1,5 +1,5 @@
 name: GRSON
-description: Free Flutter App.
+description: Free Flutter App Template created by Creative Tim.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,19 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # google_fonts: ^1.1.0
   font_awesome_flutter: ^8.8.1
   flutter_svg: ^0.19.1
   carousel_slider: ^2.2.1
+  firebase_core: ^0.4.4+3
+  firebase_auth: ^0.15.5+2
   scrollable_positioned_list: ^0.1.7
-  firebase_database: ^6.1.1
-  firebase_core: ^1.0.2
-  firebase_auth: ^1.0.1
-  # firebase_auth: ^0.6.6
-  # firebase_core: ^0.2.5+1
-  # firebase_dynamic_links: ^0.1.0+1
-  # cloud_firestore: ^0.8.2+3
-  provider: ^5.0.0
-  plugin_platform_interface: ^2.0.0
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -82,6 +77,3 @@ flutter:
         - asset: assets/fonts_secondpages/OpenSans-Bold.ttf
           weight: 600
 
-
-  
-  

@@ -1,29 +1,21 @@
-import 'package:GRSON/welcomePages/Welcome/welcome_screen.dart';
+import 'package:GRSON/firebase/authrRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/secondpages/theme/Theme.dart';
 
 import 'package:GRSON/secondpages/widgets/drawer-tile.dart';
-import 'package:provider/provider.dart';
 
-import '../../fbase/authentication_service.dart';
-// import 'package:url_launcher/url_launcher.dart';
-
-class CusDrawer extends StatelessWidget {
+class CusDrawer extends StatefulWidget {
+  final AuthrRepository _auth = AuthrRepository.instance;
   final String currentPage;
   CusDrawer({
     this.currentPage,
   });
 
-  // _launchURL() async {
-  //   const url = 'https://github.com/Abdullah-Alshalan/GRSON-Flutter';
-  //   // print('hello');
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
+  @override
+  _CusDrawerState createState() => _CusDrawerState();
+}
 
+class _CusDrawerState extends State<CusDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -54,35 +46,26 @@ class CusDrawer extends StatelessWidget {
               DrawerTile(
                   icon: Icons.home,
                   onTap: () {
-                    if (currentPage != "Home") {
+                    if (widget.currentPage != "Home") {
                       Navigator.pushReplacementNamed(context, '/home');
                     }
                   },
                   iconColor: ArgonColors.primary,
                   title: "Home",
-                  isSelected: currentPage == "Home" ? true : false),
+                  isSelected: widget.currentPage == "Home" ? true : false),
               DrawerTile(
                   icon: Icons.pie_chart,
                   onTap: () {
-                    if (currentPage != "Profile")
+                    if (widget.currentPage != "Profile")
                       Navigator.pushReplacementNamed(context, '/profile');
                   },
                   iconColor: ArgonColors.warning,
                   title: "Profile",
-                  isSelected: currentPage == "Profile" ? true : false),
+                  isSelected: widget.currentPage == "Profile" ? true : false),
               DrawerTile(
                 icon: Icons.logout,
                 onTap: () {
-                  Provider.of<AuthenticationService>(context, listen: false)
-                      .signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return WelcomeScreen();
-                      },
-                    ),
-                  );
+                  signOut();
                 },
                 iconColor: ArgonColors.primary,
                 title: "Sign Out",
@@ -108,17 +91,23 @@ class CusDrawer extends StatelessWidget {
                           fontSize: 15,
                         )),
                   ),
-                  // DrawerTile(
-                  //     icon: Icons.airplanemode_active,
-                  //     onTap: _launchURL,
-                  //     iconColor: ArgonColors.muted,
-                  //     title: "Getting Started",
-                  //     isSelected:
-                  //         currentPage == "Getting started" ? true : false),
+                  DrawerTile(
+                      icon: Icons.airplanemode_active,
+                      // onTap: _launchURL,
+                      iconColor: ArgonColors.muted,
+                      title: "Getting Started",
+                      isSelected: widget.currentPage == "Getting started"
+                          ? true
+                          : false),
                 ],
               )),
         ),
       ]),
     ));
+  }
+
+  signOut() async {
+    await widget._auth.signOut();
+    Navigator.pushReplacementNamed(context, 'WelcomePage');
   }
 }

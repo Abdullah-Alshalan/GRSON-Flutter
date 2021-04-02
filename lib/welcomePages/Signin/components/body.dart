@@ -1,4 +1,4 @@
-import 'package:GRSON/fbase/authentication_service.dart';
+import 'package:GRSON/firebase/authrRepository.dart';
 import 'package:GRSON/secondPages/theme/Theme.dart';
 import 'package:GRSON/welcomePages/components/enum.dart';
 import 'package:GRSON/welcomePages/components/forget_password.dart';
@@ -8,20 +8,20 @@ import 'package:GRSON/welcomepages/components/already_have_account.dart';
 import 'package:GRSON/welcomepages/components/rounded_button.dart';
 import 'package:GRSON/welcomepages/components/rounded_input_email_field.dart';
 import 'package:GRSON/welcomepages/components/rounded_password_field.dart';
-import 'package:provider/provider.dart';
-import '../../../main.dart';
+import 'package:flutter/services.dart';
+
 import '../../constants.dart';
 
 class Body extends StatefulWidget {
+  final AuthrRepository _auth = AuthrRepository.instance;
   Body({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _MyBody();
 }
 
 class _MyBody extends State<Body> {
-  final TextEditingController econtroller = TextEditingController();
-  final TextEditingController pcontroller = TextEditingController();
-
+  String _email = '';
+  String _password = '';
   SingingCharacter temp = SingingCharacter.customer;
   @override
   Widget build(BuildContext context) {
@@ -38,13 +38,19 @@ class _MyBody extends State<Body> {
             ),
             SizedBox(height: size.height * 0.05),
             RoundedInputEmailField(
-              controller: econtroller,
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _email = value;
+                });
+              },
             ),
             RoundedPasswordField(
-              controller: pcontroller,
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _password = value;
+                });
+              },
             ),
             Divider(
               color: ArgonColors.muted,
@@ -86,13 +92,7 @@ class _MyBody extends State<Body> {
             RoundedButton(
               text: "SIGN IN",
               press: () {
-                Provider.of<AuthenticationService>(context, listen: false)
-                    .signIn(
-                      email: econtroller.text,
-                      password: pcontroller.text,
-                    )
-                    .then((value) => print('value'));
-                print("here");
+                signIn();
                 // if (temp == SingingCharacter.customer)
                 //   Navigator.pushReplacementNamed(context, '/home');
                 // else
@@ -115,5 +115,17 @@ class _MyBody extends State<Body> {
         ),
       ),
     );
+  }
+
+  signIn() async {
+    try {
+      String uid = await widget._auth.signIn(_email, _password);
+      if (temp == SingingCharacter.customer)
+        Navigator.pushReplacementNamed(context, '/home');
+      else
+        Navigator.pushReplacementNamed(context, "Restaurant");
+    } on PlatformException catch (e) {
+      // Navigator.pushReplacementNamed(context, "WelcomePage");
+    }
   }
 }

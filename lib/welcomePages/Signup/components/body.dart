@@ -1,3 +1,4 @@
+import 'package:GRSON/firebase/authrRepository.dart';
 import 'package:GRSON/secondPages/theme/Theme.dart';
 import 'package:GRSON/welcomePages/components/enum.dart';
 import 'package:GRSON/welcomePages/components/rounded_passwordCON_field.dart';
@@ -9,14 +10,19 @@ import 'package:GRSON/welcomepages/components/rounded_button.dart';
 import 'package:GRSON/welcomepages/components/rounded_input_email_field.dart';
 import 'package:GRSON/welcomepages/components/rounded_input_person_field.dart';
 import 'package:GRSON/welcomepages/components/rounded_password_field.dart';
+import 'package:flutter/services.dart';
 
 class Body extends StatefulWidget {
+  final AuthrRepository _auth = AuthrRepository.instance;
   Body({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _MyBody();
 }
 
 class _MyBody extends State<Body> {
+  String _email = '';
+  String _password = '';
+  String _userName = '';
   SingingCharacter temp = SingingCharacter.customer;
   @override
   Widget build(BuildContext context) {
@@ -34,18 +40,30 @@ class _MyBody extends State<Body> {
             SizedBox(height: size.height * 0.05),
             RoundedInputEmailField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _email = value;
+                });
+              },
             ),
             RoundedInputPersonField(
               hintText: "Your Username",
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _userName = value;
+                });
+              },
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (value) {
+                setState(() {
+                  _password = value;
+                });
+              },
             ),
-            RoundedConfirmPasswordField(
-              onChanged: (value) {},
-            ),
+            // RoundedConfirmPasswordField(
+            //   onChanged: (value) {},
+            // ),
             Divider(
               color: ArgonColors.muted,
               height: 10,
@@ -86,7 +104,7 @@ class _MyBody extends State<Body> {
             RoundedButton(
               text: "SIGN UP",
               press: () {
-                Navigator.pushReplacementNamed(context, 'validation');
+                signUp();
               },
             ),
             SizedBox(height: size.height * 0.02),
@@ -101,5 +119,17 @@ class _MyBody extends State<Body> {
         ),
       ),
     );
+  }
+
+  signUp() async {
+    try {
+      String uid = await widget._auth.signUp(_email, _password, _userName);
+      if (temp == SingingCharacter.customer)
+        Navigator.pushReplacementNamed(context, '/home');
+      else
+        Navigator.pushReplacementNamed(context, "Restaurant");
+    } on PlatformException catch (e) {
+      // Navigator.pushReplacementNamed(context, "WelcomePage");
+    }
   }
 }
