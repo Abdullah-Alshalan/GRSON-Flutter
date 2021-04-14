@@ -1,4 +1,4 @@
-import 'package:GRSON/firebase/authrRepository.dart';
+import 'package:GRSON/firebase/authRepository.dart';
 import 'package:GRSON/secondPages/theme/Theme.dart';
 import 'package:GRSON/welcomePages/components/enum.dart';
 import 'package:GRSON/welcomePages/components/forget_password.dart';

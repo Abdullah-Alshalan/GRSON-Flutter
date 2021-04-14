@@ -5,7 +5,6 @@ import 'package:GRSON/welcomepages/Signup/components/body.dart';
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // print("object");
     return Scaffold(
       backgroundColor: ArgonColors.bgColorScreen,
       body: Body(),

@@ -1,4 +1,4 @@
-import 'package:GRSON/firebase/authrRepository.dart';
+import 'package:GRSON/firebase/authRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:GRSON/secondpages/theme/Theme.dart';
 

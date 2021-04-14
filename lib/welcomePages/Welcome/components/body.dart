@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {
-                Navigator.pushReplacementNamed(context, 'Restaurant');
+                Navigator.pushReplacementNamed(context, 'V home');
               },
             )
           ],
