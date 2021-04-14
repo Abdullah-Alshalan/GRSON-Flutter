@@ -66,7 +66,9 @@ class _ResDrawerState extends State<ResDrawer> {
                       widget.currentPage == "resprofile" ? true : false),
               DrawerTile(
                 icon: Icons.logout,
-                onTap: () {},
+                onTap: () {
+                  signOut();
+                },
                 iconColor: ArgonColors.primary,
                 title: "Sign Out",
               ),
